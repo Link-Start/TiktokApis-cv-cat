@@ -1,0 +1,8 @@
+requests>=2.31,<3
+beautifulsoup4>=4.12,<5
+loguru>=0.7,<1
+websocket-client>=1.8,<2
+protobuf>=3.20,<5
+protobuf3_to_dict>=0.1.5
+blackboxprotobuf>=1.0.1
+PyExecJS>=1.5.1

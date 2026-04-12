@@ -51,7 +51,7 @@
 先安装 Python 依赖：
 
 ```bash
-pip install requests beautifulsoup4 loguru websocket-client protobuf protobuf-to-dict blackboxprotobuf PyExecJS
+pip install requests beautifulsoup4 loguru websocket-client protobuf protobuf3_to_dict blackboxprotobuf PyExecJS
 ```
 
 再安装 JS 运行依赖：
