@@ -1,0 +1,172 @@
+syntax = "proto3";
+
+package im_proto;
+
+message Frame {
+    optional uint64 seqid = 1;
+    optional uint64 logid = 2;
+    optional int32 service = 3;
+    optional int32 method = 4;
+    repeated ExtValue headers = 5;
+    optional string payload_encoding = 6;
+    optional string payload_type = 7;
+    optional bytes payload = 8;
+}
+
+message Request {
+    optional int32 cmd = 1;
+    optional int64 sequence_id = 2;
+    optional string sdk_version = 3;
+    optional string token = 4;
+    optional int32 refer = 5;
+    optional int32 inbox_type = 6;
+    optional string build_number = 7;
+    optional RequestBody body = 8;
+    optional string device_id = 9;
+    optional string channel = 10;
+    optional string device_platform = 11;
+    optional string device_type = 12;
+    optional string os_version = 13;
+    optional string version_code = 14;
+    repeated ExtValue headers = 15;
+    optional int32 config_id = 16;
+    optional TokenInfo token_info = 17;
+    optional int32 auth_type = 18;
+    optional int32 retry_count = 20;
+}
+
+message RequestBody {
+    optional SendMessageRequestBody send_message_body = 100;
+    optional MarkConversationReadRequestBody mark_conversation_read_body = 604;
+    optional GetStrangerConversationListRequestBody get_stranger_conversation_list_body = 1000;
+}
+
+message SendMessageRequestBody {
+    optional string conversation_id = 1;
+    optional int32 conversation_type = 2;
+    optional int64 conversation_short_id = 3;
+    optional string content = 4;
+    repeated ExtValue ext = 5;
+    optional int32 message_type = 6;
+    optional string ticket = 7;
+    optional string client_message_id = 8;
+    repeated int64 mentioned_users = 9;
+    optional bool ignore_badge_count = 10;
+    repeated ExtValue client_ext = 12;
+    optional string scene = 14;
+    repeated int64 VisibleUsers = 15;
+    repeated int64 InvisibleUsers = 16;
+}
+
+message MarkConversationReadRequestBody {
+    string conversation_id = 1;
+    int64 conversation_short_id = 2;
+    int32 conversation_type = 3;
+    int64 read_message_index = 4;
+    int64 conv_unread_count = 5;
+    int64 total_unread_count = 6;
+    int64 read_message_index_v2 = 7;
+    int32 read_badge_count = 8;
+    string ticket = 9;
+    int64 server_message_id = 10;
+    int32 read_badge_count_v2 = 11;
+}
+
+message GetStrangerConversationListRequestBody {
+    int64 cursor = 1;
+    int64 count = 2;
+    bool show_total_unread = 3;
+    string biz_info = 4;
+}
+
+message TokenInfo {
+    optional int32 mark_id = 1;
+    optional int32 type = 2;
+    optional int32 app_id = 3;
+    optional int64 user_id = 4;
+    optional int64 timestamp = 5;
+    optional int32 app_id_without_hook = 6;
+    optional int64 user_id_without_hook = 7;
+}
+
+message ExtValue {
+    optional string key = 1;
+    optional string value = 2;
+}
+
+message Response {
+    optional int32 cmd = 1;
+    optional int64 sequence_id = 2;
+    optional int32 status_code = 3;
+    optional string error_desc = 4;
+    optional int32 inbox_type = 5;
+    optional ResponseBody body = 6;
+    optional string log_id = 7;
+    repeated ExtValue headers = 8;
+    optional int64 start_time_stamp = 9;
+    optional int64 request_arrived_time = 10;
+    optional int64 server_execution_end_time = 11;
+    optional int32 retry_count = 12;
+    optional int64 server_start_time = 13;
+}
+
+message ResponseBody {
+    optional SendMessageResponseBody send_message_body = 100;
+    optional NewMessageNotify has_new_message_notify = 500;
+}
+message SendMessageResponseBody {
+    optional int64 server_message_id = 1;
+    optional string extra_info = 2;
+    optional int32 status = 3;
+    optional string client_message_id = 4;
+    optional int64 check_code = 5;
+    optional string check_message = 6;
+    optional string filtered_content = 7;
+    optional bool is_async_send = 8;
+    optional string new_ticket = 9;
+    optional int32 inboxPageCategory = 12;
+    optional int32 filter_reason = 13;
+}
+message NewMessageNotify {
+    string conversation_id = 2;
+    int32 conversation_type = 3;
+    int32 notify_type = 4;
+    MessageBody message = 5;
+    int64 previous_cursor = 6;
+    int64 next_cursor = 7;
+    int64 index_in_conversation = 8;
+    int64 index_in_conversation_v2 = 9;
+    int64 conversation_version = 10;
+    int64 previous_conversation_version = 11;
+    int64 cmd_message_index = 12;
+    int32 badge_count = 13;
+    int64 previous_msg_index_in_conv = 16;
+    int64 readconv_version = 17;
+    int64 pre_readconv_version = 18;
+    string push_preview = 20;
+    int32 badge_count_v2 = 21;
+}
+
+message MessageBody {
+    string conversation_id = 1;
+    int32 conversation_type = 2;
+    int64 server_message_id = 3;
+    int64 index_in_conversation = 4;
+    int64 conversation_short_id = 5;
+    int32 message_type = 6;
+    int64 sender = 7;
+    string content = 8;
+    repeated ExtValue ext = 9;
+    int64 create_time = 10;
+    int64 version = 11;
+    int32 status = 12;
+    int64 order_in_conversation = 13;
+    string sec_sender = 14;
+    int64 index_in_conversation_v2 = 17;
+    int64 index_in_conversation_v1 = 19;
+    bytes content_pb = 20;
+    string scene = 21;
+    int32 conv_rank_update_rule = 22;
+    int64 ttl = 23;
+    int64 pre_conversation_index = 25;
+}
